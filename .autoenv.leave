@@ -1,0 +1,3 @@
+if [[ ! $(pwd) == *"charging_api"* ]]; then
+    echo "Deactivating charging_api virtual environment"
+fi

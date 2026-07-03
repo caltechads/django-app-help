@@ -1,0 +1,12 @@
+title: Administrator Guide
+slug: admin
+description: Access control and operational checks for help content.
+
+sections:
+  - title: Access Control
+    pages:
+      - admin/permissions
+      - admin/audience
+  - title: Operations
+    pages:
+      - admin/validation

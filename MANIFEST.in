@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include app_help/static *
+recursive-include app_help/templates *

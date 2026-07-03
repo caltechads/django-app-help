@@ -1,0 +1,13 @@
+title: User Guide
+slug: user
+description: How to browse help in the Django App Help demo.
+
+sections:
+  - title: Getting Started
+    pages:
+      - getting-started/welcome
+      - getting-started/navigation
+  - title: Topics
+    pages:
+      - topics/books
+      - topics/pages

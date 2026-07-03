@@ -1,0 +1,9 @@
+title: User Guide
+slug: user
+description: User-facing help.
+sections:
+  - title: Billing
+    pages:
+      - billing/overview
+      - billing/pta-accounts
+

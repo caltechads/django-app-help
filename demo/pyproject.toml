@@ -1,0 +1,261 @@
+[project]
+name = "demo"
+version = "0.1.0"
+description = "Django App Help Demo"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=5.2.12",
+    "django-book-manager>=0.3.2",
+    "django-app-help>=0.1.0",
+    "django-theme-academy>=0.3.13",
+    "django-wildewidgets>=1.7.2",
+    "django-markdownify>=0.9.7",
+]
+
+[tool.uv.sources]
+django-app-help = {path = "..", editable = true}
+
+###############################################################################
+# MyPy Configuration
+###############################################################################
+[tool.mypy]
+exclude = "(^build/.*$|^docs/.*\\.py$|test_.*\\.py$)"
+# Django has a lot of magic that makes attributes appear after instance instantiation,
+# so we need to disable this check.
+disable_error_code = ["attr-defined"]
+
+[[tool.mypy.overrides]]
+module = "django.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "setuptools.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "redis.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "dal.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "braces.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "sphinx_rtd_theme.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "crispy_forms.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "environ.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "sentry_sdk.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "djunk.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "wildewidgets.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "debug_toolbar.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "ads_dev_ops.*.migrations.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "requests.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "structlog.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "boto3.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "botocore.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "slackfin.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "django_rq.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "django_extensions.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "caltech_theme.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "crequest.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "crequest.middleware"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "directory.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "mjml.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "pytest"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "selectjs.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "urllib3.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "access_caltech_client.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "factory.*"
+ignore_missing_imports = true
+
+###############################################################################
+# Ruff Configuration
+###############################################################################
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py312"
+# Tell ruff that this project's python code all lives inside the ledger subfolder.
+src = ["ledger"]
+# Don't lint the venv, the test code, or the migrations.
+exclude = [".venv", "*/tests/*", "*/migrations/*"]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+# Disable auto-formatting of code examples in docstrings.
+# This is currently disabled by default, but it is planned for this
+# to be opt-out in the future, so we're opting out now.
+docstring-code-format = false
+# Set the line length limit used when formatting code snippets in docstrings.
+# This only has an effect when the docstring-code-format = true.
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint]
+select = ["ALL"]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+# Allow unused variables if their names are underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+ignore = [
+    #### Ignore entire modules
+    "ANN",  # flake8-annotations
+    "COM",  # flake8-commas
+    "C90",  # mccabe complexity
+    "TID",  # flake8-tidy-imports
+
+    #### Ignore specific rules
+    "CPY001",   # ignore missing copyright notices
+    "D100",     # ignore missing docs
+    "D101",     # ignore Missing docstring in public class
+    "D102",     # ignore Missing docstring in public method
+    "D103",     # ignore Missing docstring in public function
+    "D104",     # ignore Missing docstring in public package
+    "D105",     # ignore Missing docstring in magic method
+    "D106",     # ignore Missing docstring in public nested class
+    "D107",     # ignore Missing docstring in __init__ method
+    "D200",     # One-line docstring should fit on one line
+    "D203",     # 1 blank required before class docstring
+    "D205",     # 1 blank line required between summary line and description
+    "D211",     # No blank lines allowed before class docstring
+    "D212",     # Multi-line docstring summary should start at the first line
+    "D400",     # First line of docstring should end with a period
+    "D401",     # First line of docstring should be in imperative mood
+    "D415",     # First line of docstring should end with a period, question mark, or exclamation point
+    "DOC201",   # Ignore missing "Return" section in docstring
+    "DJ008",    # ignore Model does not define __str__ method
+    "E402",     # Ignore imports that aren't at the top of the file
+    "ERA001",   # Ignore commented out code
+    "FIX002",   # Line contains "TODO", consider resolving the issue
+    "N818",     # Stop bugging me about not ending my exceptions with "Error"
+    "PLC0415",  # Ignore imports that aren't at the top level. Sometimes that's needed to avoid circular imports
+    "PLR6201",  # Ignore list literals used in membership tests. We don't care about the performance boost from sets
+    "RUF012",   # Ignore mutable class attrs. Wagtail expects lists for a lot of those, and our code never touches them
+    "S501",     # Ignore requests.verify=False. It's a private domain, so it's ok.
+    "S113",     # Ignore requests timeout.
+    "S603",     # ignore subprocess calls that do not check return code
+    "S607",     # ignore subprocess programs that are not absolute paths
+    "SIM102",   # Don't try to combine nested ifs
+    "SLF001",   # Ignore access to attributes starting with a single _. Django's Model._meta is used all over the place.
+    "T201",     # Ignore print statements
+    "TD002",    # Missing author in TODO; try: # TODO(<author_name>): ... or # TODO @<author_name>:
+    "TD003",    # Missing issue link on the line following this TODO
+    "TRY003",   # external messages in exceptions are too verbose
+]
+
+[tool.ruff.lint.pylint]
+# Django signal handlers use a lot of positional args.
+max-args = 10
+max-positional-args = 10
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["ARG001", "S101", "PLR0913"]
+"**/test_*.py" = ["ARG001", "S101", "PLR0913"]
+
+###############################################################################
+# Esbonio Configuration
+###############################################################################
+[tool.esbonio.sphinx]
+buildCommand = ["sphinx-build", "-M", "html", "doc/source", "doc/build"]
+pythonCommand = ["${venv:.venv}"]
+
+###############################################################################
+# Pytest Configuration
+###############################################################################
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "ledger.settings"
+python_files = ["tests.py", "test_*.py", "_*_tests.py"]
+addopts = [
+    "--reuse-db",
+    "--nomigrations",
+    "--strict-markers",
+    "--cov=ledger",
+    "--cov-report=html:reports/coverage",
+    "--cov-report=term-missing",
+    "--cov-branch"
+]
+testpaths = ["tests"]

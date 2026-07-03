@@ -1,0 +1,17 @@
+title: Developer Guide
+slug: developer
+description: Authoring and integrating filesystem-backed help.
+
+sections:
+  - title: Authoring
+    pages:
+      - authoring/pages
+      - authoring/snippets
+      - authoring/includes
+  - title: Linking
+    pages:
+      - linking/help-links
+      - linking/assets
+  - title: Integration
+    pages:
+      - integration/engine

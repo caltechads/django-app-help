@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-app-help"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+authors = [
+    { name = "Caltech IMSS ADS", email = "imss-ads-staff@caltech.edu" },
+]
+requires-python = ">=3.14"
+dependencies = [
+    "Django>=5.2",
+    "PyYAML>=6.0",
+    "django-markdownify>=0.9.7",
+    "django-wildewidgets>=1.7.2",
+    "pytest>=9.1.1",
+]
+
+[dependency-groups]
+dev = [
+  "ipython>=7.27.0",
+  "django-stubs==5.1.1",
+  "build>=1.5.0",
+  "twine>=6.2.0",
+]
+test = [
+    "coverage >= 7.6.1",                    # https://github.com/nedbat/coveragepy
+    "django-coverage-plugin >= 3.1.0",      # https://github.com/nedbat/django_coverage_plugin
+    "factory-boy >= 3.3.1",                 # https://github.com/FactoryBoy/factory_boy
+    "pytest >= 8.0.0",                       # https://github.com/pytest-dev/pytest
+    "pytest-env>=1.2.0",                    # https://github.com/pytest-dev/pytest-env
+    "pytest-django >= 4.9.0",               # https://github.com/pytest-dev/pytest-django
+    "pytest-xdist >= 3.0.0",                # https://github.com/pytest-dev/pytest-xdist
+    "pytest-cov >= 4.0.0",                  # https://github.com/pytest-dev/pytest-cov
+    "pytest-mock >= 3.10.0",                # https://github.com/pytest-dev/pytest-mock
+    "pytest-randomly >= 3.15.0",            # https://github.com/adamchainz/pytest-randomly
+    "pytest-html >= 3.2.0",                 # https://github.com/pytest-dev/pytest-html
+    "pytest-selenium >= 4.1.0",             # https://github.com/pytest-dev/pytest-selenium
+    "pytest-sugar >= 0.9.7",                # https://github.com/Frozenball/pytest-sugar
+    "testfixtures >= 8.3.0",                # https://github.com/Simplistix/testfixtures
+    "unittest-xml-reporting >= 3.2.0",      # https://github.com/xmlrunner/unittest-xml-reporting
+]
+
+[tool.uv]
+# Install the test dependency group by default.
+default-groups = ["test"]
+
+
+[tool.setuptools.packages.find]
+exclude = ["*.tests", "*.tests.*", "tests.*", "tests", "htmlcov"]

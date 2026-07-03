@@ -1,0 +1,15 @@
+{% extends "academy_theme/base--wildewidgets.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block ribbon_bar_links %}
+<ul class="ribbon_bar__content__links d-flex align-self-center">
+  <li>
+    <a href="#{{ view.help_offcanvas_id }}"
+      data-bs-toggle="offcanvas">
+      <span class="fw-bold">Help</span>
+    </a>
+  </li>
+</ul>
+{% endblock %}
+
