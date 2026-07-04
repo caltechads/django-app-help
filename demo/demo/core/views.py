@@ -3,7 +3,7 @@
 from typing import Any, ClassVar
 
 from academy_theme.wildewidgets import AcademyThemeMainMenu
-from app_help.views import HelpOffcanvasMixin
+from app_help.views import HelpBookViewMixin, HelpOffcanvasMixin
 from django.urls import reverse
 from django.views.generic import TemplateView
 from wildewidgets import (
@@ -31,7 +31,8 @@ PAGE_CONTENT: dict[str, dict[str, Any]] = {
         "cards": (
             (
                 "Purpose",
-                "Use these pages as a stable place to develop and inspect future help UI.",
+                "Use these pages as a stable place to develop and inspect "
+                "future help UI.",
             ),
             ("Next", "Add real app-help views here once the Django surface exists."),
         ),
@@ -39,7 +40,9 @@ PAGE_CONTENT: dict[str, dict[str, Any]] = {
     "components": {
         "title": "Component Samples",
         "menu": "Components",
-        "summary": "Basic cards, blocks, and datagrids rendered through the shared theme.",
+        "summary": (
+            "Basic cards, blocks, and datagrids rendered through the shared theme."
+        ),
         "facts": {
             "Cards": "Static content blocks",
             "Datagrid": "Key/value details",
@@ -86,7 +89,8 @@ PAGE_CONTENT: dict[str, dict[str, Any]] = {
             ("Health", "The page renders without touching the help engine."),
             (
                 "Coverage",
-                "Current demo coverage is intentionally route and render smoke testing.",
+                "Current demo coverage is intentionally route and render "
+                "smoke testing.",
             ),
         ),
     },
@@ -106,6 +110,7 @@ class MainMenu(AcademyThemeMainMenu):
         ("Components", "components"),
         ("Workflow", "workflow"),
         ("Status", "status"),
+        ("Help", "app-help"),
     ]
 
 
@@ -113,10 +118,12 @@ class BaseBreadcrumbs(BreadcrumbBlock):
     """Breadcrumb trail shared by all demo pages."""
 
     def __init__(self, current: str | None = None) -> None:
-        """Create breadcrumbs for a demo page.
+        """
+        Create breadcrumbs for a demo page.
 
         Args:
             current: Current page label.
+
         """
         super().__init__()
         self.add_breadcrumb("Home", reverse("home"))
@@ -125,7 +132,8 @@ class BaseBreadcrumbs(BreadcrumbBlock):
 
 
 class DemoPageView(HelpOffcanvasMixin, MenuMixin, StandardWidgetMixin, TemplateView):
-    """Render one static Academy/Wildewidgets demo page.
+    """
+    Render one static Academy/Wildewidgets demo page.
 
     ``HelpOffcanvasMixin`` must precede ``StandardWidgetMixin`` so
     ``StandardWidgetMixin`` can call ``get_content()`` during the ``super()``
@@ -133,8 +141,7 @@ class DemoPageView(HelpOffcanvasMixin, MenuMixin, StandardWidgetMixin, TemplateV
     """
 
     #: Academy's bundled Wildewidgets base template.
-    # template_name: ClassVar[str] = "academy_theme/base--wildewidgets.html"
-    template_name: ClassVar[str] = "core/standard.html"
+    template_name = "core/standard.html"
     #: Menu class displayed by the Academy theme.
     menu_class: ClassVar[type[BasicMenu]] = MainMenu
     #: Active menu item label.
@@ -145,12 +152,16 @@ class DemoPageView(HelpOffcanvasMixin, MenuMixin, StandardWidgetMixin, TemplateV
     help_book_slug: ClassVar[str | None] = "user"
     #: Help page displayed in the page offcanvas.
     help_page_id: ClassVar[str | None] = "getting-started/welcome"
+    #: URL name for the full-book help view.
+    help_book_url_name: ClassVar[str | None] = "app-help"
 
     def get_content(self) -> WidgetListLayout:
-        """Build the Wildewidgets content for the page.
+        """
+        Build the Wildewidgets content for the page.
 
         Returns:
             Widget list layout containing static cards and a datagrid.
+
         """
         page = PAGE_CONTENT[self.page_key]
         layout = WidgetListLayout(page["title"])
@@ -180,9 +191,34 @@ class DemoPageView(HelpOffcanvasMixin, MenuMixin, StandardWidgetMixin, TemplateV
         return layout
 
     def get_breadcrumbs(self) -> BreadcrumbBlock:
-        """Build breadcrumbs for the current page.
+        """
+        Build breadcrumbs for the current page.
 
         Returns:
             Breadcrumb block for the Academy theme.
+
         """
         return BaseBreadcrumbs(PAGE_CONTENT[self.page_key]["menu"])
+
+
+class DemoHelpView(HelpBookViewMixin, MenuMixin, StandardWidgetMixin, TemplateView):
+    """Render the demo user's full help book inside the demo chrome."""
+
+    #: Academy's bundled Wildewidgets base template.
+    template_name = "core/standard.html"
+    #: Menu class displayed by the Academy theme.
+    menu_class: ClassVar[type[BasicMenu]] = MainMenu
+    #: Active menu item label.
+    menu_item: ClassVar[str] = "Help"
+    #: Help book displayed in the full-book view.
+    help_book_slug: ClassVar[str | None] = "user"
+
+    def get_breadcrumbs(self) -> BreadcrumbBlock:
+        """
+        Build breadcrumbs for the full-book help page.
+
+        Returns:
+            Breadcrumb block for the Academy theme.
+
+        """
+        return BaseBreadcrumbs("Help")

@@ -1,6 +1,6 @@
 """Recommended Django settings for django-app-help integrations."""
 
-import bleach
+import bleach  # type: ignore[import-untyped]
 
 #: Bleach tag whitelist for Markdown help content rendered via django-markdownify.
 _MARKDOWN_HELP_TAGS = {
