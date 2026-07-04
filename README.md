@@ -176,6 +176,47 @@ engine.validate_book("user")
 
 `render_page()` expands snippet includes, strips front matter, and optionally verifies that the page belongs to the requested book.
 
+## Command-line interface
+
+After installation, the `django-app-help` command is available for authoring and CI workflows without running Django.
+
+### Bootstrap a help tree
+
+```bash
+django-app-help init
+django-app-help init --root /path/to/myapp
+```
+
+This creates `help/` with example book, page, and snippet content under the project root (current directory by default).
+
+### List and render content
+
+Point the CLI at your help root with `--help-root` or the `APP_HELP_ROOT` environment variable. If `./help` exists, it is used automatically.
+
+```bash
+django-app-help --help-root demo/demo/core/help books
+django-app-help --help-root demo/demo/core/help pages
+django-app-help --help-root demo/demo/core/help pages getting-started/welcome
+django-app-help --help-root demo/demo/core/help snippets
+django-app-help --help-root demo/demo/core/help show book user
+```
+
+Render a page with optional book membership check:
+
+```bash
+django-app-help --help-root demo/demo/core/help pages billing/overview --book user
+```
+
+### Validate content
+
+```bash
+django-app-help --help-root demo/demo/core/help validate page billing/overview
+django-app-help --help-root demo/demo/core/help validate book user
+django-app-help --help-root demo/demo/core/help validate all
+```
+
+Use `validate` in CI by exporting `APP_HELP_ROOT` to your help directory.
+
 ## Demo
 
 The `demo/` directory is a small Django project that shows help wired into Academy-themed Wildewidgets pages. It installs this package in editable mode and serves sample content from `demo/demo/core/help/`.

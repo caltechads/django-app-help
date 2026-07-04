@@ -14,10 +14,14 @@ requires-python = ">=3.14"
 dependencies = [
     "Django>=5.2",
     "PyYAML>=6.0",
+    "click>=8.1",
     "django-markdownify>=0.9.7",
     "django-wildewidgets>=1.7.2",
     "pytest>=9.1.1",
 ]
+
+[project.scripts]
+django-app-help = "app_help.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/caltechads/django-app-help"
