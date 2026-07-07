@@ -114,7 +114,7 @@ venv.bak/
 config.codekit3
 sql/docker/mysql-data
 .vscode
-app_help.code-workspace
+*.code-workspace
 
 # Vim
 *.sw*

@@ -187,6 +187,8 @@ class HelpOffcanvasMixin(_HelpSourceMixin):
             offcanvas_id=self.help_offcanvas_id,
             offcanvas_title=self.help_offcanvas_title,
             widget=widget,
+            scroll=True,
+            backdrop=False,
         )
 
 
